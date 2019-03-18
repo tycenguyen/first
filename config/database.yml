@@ -23,3 +23,6 @@ test:
 
 production:
   <<: *default
+  database: product
+  username: postgres
+  password: 123456
