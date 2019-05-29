@@ -1,12 +1,13 @@
 version: 2
 jobs:
   build:
-    working_directory: '~/first'
+    working_directory: ~/first
     docker:
       - image: circleci/ruby:2.4.5
-      environment:
-        RAILS_ENV: test
-  steps:
-    - checkout
-    - run: cp .sample.env .env
-    - run: bundle exec rake
+    environment:
+      RAILS_ENV: test
+    steps:
+      - checkout
+      - run: echo "A first hello"
+      - run: cp .sample.env .env
+      - run: bundle exec rake     
