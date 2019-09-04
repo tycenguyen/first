@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/first
+    docker:
+      - image: circleci/ruby:2.4.5
+    environment:
+      RAILS_ENV: test
+    steps:
+      - checkout
+      - run: echo "A first hello"
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler 
+            gem install rspec
+            rspec -P test/helpers/*.rb
+
