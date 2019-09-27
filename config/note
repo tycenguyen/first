@@ -1,0 +1,28 @@
+rabbitmq-server
+http://localhost:15672
+brew services start rabbitmq
+redis-browser
+
+WORKERS=PostsWorker rake sneakers:run
+
+
+
+bin/zookeeper-server-start.sh config/zookeeper.properties
+bin/kafka-server-start.sh config/server.properties
+
+zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties & kafka-server-start /usr/local/etc/kafka/server.properties
+kafka-console-consumer --bootstrap-server localhost:9092 --topic test --from-beginning
+
+upstream node_cluster {
+    server 127.0.0.1:3000;
+    server 127.0.0.1:4000;
+}
+
+
+brew services start zookeeper
+brew services start kafka
+
+brew services start rabbitmq
+
+rspec ./test/helpers/test.rb
+rspec ./test/helpers/test2.rb
